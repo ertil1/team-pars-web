@@ -86,7 +86,7 @@ export default function PodVisual() {
         <ambientLight intensity={1.35} />
         <hemisphereLight args={['#ffffff', '#14110b', 2.1]} />
         <directionalLight position={[5, 7, 4]} intensity={3.2} castShadow />
-        <directionalLight position={[-5, 2, -2]} intensity={2.2} color="#e29d2b" />
+        <directionalLight position={[-5, 2, -2]} intensity={2.2} color="#4f8ef7" />
         <Suspense fallback={<LoadingModel />}>
           <VehicleModel />
         </Suspense>
@@ -101,7 +101,7 @@ export default function PodVisual() {
         <strong>ANADOLU PARSI</strong>
       </div>
       <div className="model-control">SÜRÜKLE · DÖNDÜR · YAKINLAŞTIR</div>
-      <a className="model-source" href="https://teampars.com.tr/" target="_blank" rel="noreferrer">ORİJİNAL 3D MODEL</a>
+      <a className="model-source" href="https://teampars.com.tr/" target="_blank" rel="noreferrer">TEAM PARS 3D MODELİ</a>
     </div>
   )
 }

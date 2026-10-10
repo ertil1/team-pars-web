@@ -3,3 +3,7 @@ dist/
 .tools/
 *.log
 *.tar.gz
+SUNUM/
+SUNUM.zip
+__MACOSX/
+/kapsul.STL
