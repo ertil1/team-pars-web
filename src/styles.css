@@ -16,6 +16,7 @@
   --line: rgba(255,255,255,.08);
   --display: "Manrope", "Inter", sans-serif;
   --body: "Inter", sans-serif;
+  --tech: "Exo 2", "Manrope", sans-serif;
   color: var(--white);
   background: var(--bg);
   font-family: var(--body);
@@ -71,6 +72,50 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .stat:nth-child(n+3) { border-bottom: 0; }
 .stat strong { font: 600 38px var(--display); letter-spacing: -.04em; }
 .stat span { color: var(--gray-500); font-size: 12px; }
+
+.concept { border-top: 1px solid var(--line); }
+.concept-heading { margin-bottom: 36px; display: grid; grid-template-columns: 180px 1fr 360px; gap: 44px; align-items: end; }
+.concept-heading h2 { margin: 0; font: 600 clamp(34px, 4vw, 52px)/1.08 var(--display); letter-spacing: -.035em; }
+.concept-heading p { margin: 0; color: var(--gray-500); font-size: 13px; line-height: 1.7; }
+.concept-shell { height: 690px; position: relative; overflow: hidden; border: 1px solid var(--line); background-color: var(--navy-950); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 64px 64px; }
+.concept-shell::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(6,13,26,.18), transparent 45%, rgba(15,33,64,.32)); }
+.concept-slide { position: absolute; z-index: 1; inset: 0; padding: 48px; cursor: grab; }
+.concept-slide:active { cursor: grabbing; }
+.concept-title>span { color: var(--accent); font: 700 10px var(--tech); letter-spacing: .16em; }
+.concept-title h3 { margin: 15px 0 14px; font: 700 clamp(38px, 4vw, 58px)/1.05 var(--tech); letter-spacing: -.025em; }
+.concept-title h3 em { color: var(--accent); font-style: normal; }
+.concept-title>p { max-width: 1040px; margin: 0; color: var(--gray-300); font-size: 18px; line-height: 1.65; }
+.concept-title>p b { color: var(--white); font-weight: 650; }
+.concept-title.compact { max-width: 900px; }
+.concept-tube { height: 250px; margin-top: 30px; position: relative; overflow: hidden; border: 1px solid rgba(201,207,217,.2); border-radius: 150px; background: rgba(10,22,40,.72); }
+.concept-tube::after { content: ""; position: absolute; left: 4%; right: 4%; bottom: 26px; height: 3px; background: repeating-linear-gradient(90deg, var(--accent) 0 24px, transparent 24px 38px); opacity: .7; }
+.concept-tube img { position: absolute; z-index: 1; left: 50%; bottom: 31px; width: min(680px, 58%); transform: translateX(-50%); filter: drop-shadow(0 15px 18px rgba(0,0,0,.6)); }
+.concept-pillars { margin-top: 27px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.concept-pillars>div { display: flex; gap: 16px; align-items: flex-start; }
+.concept-pillars i, .benefit-grid i { width: 44px; height: 44px; flex: 0 0 auto; display: grid; place-items: center; color: var(--accent); background: var(--accent-soft); border: 1px solid rgba(79,142,247,.2); font-style: normal; }
+.concept-pillars svg, .benefit-grid svg { width: 22px; height: 22px; }
+.concept-pillars span { display: grid; gap: 7px; }
+.concept-pillars strong { font: 650 16px var(--tech); }
+.concept-pillars small { color: var(--gray-500); font-size: 11px; line-height: 1.55; }
+.benefit-grid { margin-top: 54px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+.benefit-grid>div { min-height: 270px; padding: 26px; background: rgba(10,22,40,.88); border: 1px solid var(--line); }
+.benefit-grid strong { display: block; margin-top: 54px; font: 650 21px var(--tech); }
+.benefit-grid p { color: var(--gray-500); font-size: 12px; line-height: 1.65; }
+.history-track { margin-top: 95px; display: grid; grid-template-columns: repeat(6, 1fr); position: relative; }
+.history-track::before { content: ""; position: absolute; left: 0; right: 0; top: 48px; height: 2px; background: linear-gradient(90deg, var(--navy-500), var(--accent)); }
+.history-track>div { position: relative; padding-right: 20px; }
+.history-track strong { color: var(--white); font: 700 22px var(--tech); }
+.history-track i { width: 13px; height: 13px; margin: 18px 0 29px; position: relative; z-index: 1; display: block; border: 3px solid var(--accent); border-radius: 50%; background: var(--navy-950); box-shadow: 0 0 0 7px var(--accent-soft); }
+.history-track p { max-width: 145px; margin: 0; color: var(--gray-500); font-size: 11px; line-height: 1.55; }
+.concept-controls { min-height: 64px; display: grid; grid-template-columns: 46px 1fr auto 46px; gap: 18px; align-items: center; border: 1px solid var(--line); border-top: 0; padding: 0 14px; }
+.concept-controls>button { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--navy-950); color: var(--gray-300); cursor: pointer; }
+.concept-controls>button:hover { border-color: var(--accent); color: var(--white); }
+.concept-controls>button svg { width: 18px; }
+.concept-controls>div { display: flex; align-items: center; gap: 8px; }
+.concept-controls>div button { width: 34px; height: 3px; padding: 0; border: 0; background: var(--gray-700); cursor: pointer; }
+.concept-controls>div button.active { background: var(--accent); }
+.concept-controls>span { color: var(--gray-500); font: 600 11px var(--tech); letter-spacing: .08em; }
+.concept-controls>span b { color: var(--white); }
 
 .section-head { display: grid; grid-template-columns: 180px minmax(0, 1fr) 360px; gap: 44px; align-items: start; margin-bottom: 58px; }
 .section-head h2 { margin: -8px 0 0; font: 600 clamp(38px, 4.7vw, 64px)/1.06 var(--display); letter-spacing: -.045em; }
@@ -197,6 +242,8 @@ footer { border-top: 1px solid var(--line); background: var(--navy-950); }
   .section-head { grid-template-columns: 150px 1fr; }
   .section-head p { grid-column: 2; }
   .overview { gap: 55px; }
+  .concept-heading { grid-template-columns: 150px 1fr; }
+  .concept-heading p { grid-column: 2; }
   .contact { gap: 55px; }
   .sponsor-copy, .sponsor-docs { padding: 44px; }
 }
@@ -219,6 +266,26 @@ footer { border-top: 1px solid var(--line); background: var(--navy-950); }
   .section-head { display: block; margin-bottom: 40px; }
   .section-head h2 { margin: 20px 0; font-size: 40px; }
   .pod-stage { height: 390px; }
+  .concept-heading { display: block; }
+  .concept-heading h2 { margin: 18px 0 12px; }
+  .concept-shell { height: 710px; }
+  .concept-slide { padding: 28px 22px; }
+  .concept-title h3 { font-size: 35px; }
+  .concept-title>p { font-size: 14px; }
+  .concept-tube { height: 185px; margin-top: 24px; }
+  .concept-tube img { width: 88%; bottom: 30px; }
+  .concept-pillars { grid-template-columns: 1fr; gap: 15px; }
+  .concept-pillars i { width: 38px; height: 38px; }
+  .benefit-grid { margin-top: 30px; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .benefit-grid>div { min-height: 195px; padding: 18px; }
+  .benefit-grid strong { margin-top: 30px; font-size: 17px; }
+  .history-track { margin-top: 34px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .history-track::before { display: none; }
+  .history-track>div { padding: 15px; border-left: 2px solid var(--accent); background: rgba(10,22,40,.75); }
+  .history-track i { display: none; }
+  .history-track p { max-width: none; margin-top: 8px; }
+  .concept-controls { grid-template-columns: 42px 1fr 42px; }
+  .concept-controls>span { display: none; }
   .model-meta { left: 15px; bottom: 14px; }
   .model-control { display: none; }
   .model-source { top: 15px; right: 15px; }

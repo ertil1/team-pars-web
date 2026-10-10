@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowDown, ArrowRight, Check, Download, Instagram, Linkedin, Mail, Menu, Send, X } from 'lucide-react'
+import { ArrowDown, ArrowRight, Check, ChevronLeft, ChevronRight, Clock3, Download, Gauge, Instagram, Leaf, Linkedin, Magnet, Mail, Menu, Send, ShieldCheck, X, Zap } from 'lucide-react'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -12,6 +12,7 @@ const PodVisual = lazy(() => import('./components/PodVisual'))
 
 const nav = [
   { tr: 'Hakkımızda', en: 'About', id: 'about' },
+  { tr: 'Hyperloop', en: 'Hyperloop', id: 'hyperloop' },
   { tr: 'Pod ve Teknoloji', en: 'Pod & Technology', id: 'technology' },
   { tr: 'Ekip', en: 'Team', id: 'team' },
   { tr: 'Yol Haritası', en: 'Roadmap', id: 'roadmap' },
@@ -71,10 +72,17 @@ export default function App() {
   const [menu, setMenu] = useState(false)
   const [lang, setLang] = useState<'TR' | 'EN'>('TR')
   const [filter, setFilter] = useState('Tüm Ekip')
+  const [conceptIndex, setConceptIndex] = useState(0)
+  const [conceptDirection, setConceptDirection] = useState(1)
   const [sent, setSent] = useState(false)
   const [clock, setClock] = useState('')
   const en = lang === 'EN'
   const visibleTeam = useMemo(() => filter === 'Tüm Ekip' ? team : team.filter((item) => item.dept === filter), [filter])
+
+  const changeConcept = (next: number) => {
+    setConceptDirection(next > conceptIndex || (conceptIndex === 2 && next === 0) ? 1 : -1)
+    setConceptIndex((next + 3) % 3)
+  }
 
   useEffect(() => {
     document.documentElement.lang = en ? 'en' : 'tr'
@@ -145,6 +153,59 @@ export default function App() {
           </div>
           <div className="stats-grid reveal">
             {(en ? [['120+', 'km/h target speed'], ['6th', 'Türkiye ranking'], ['30', 'team members'], ['4', 'disciplines']] : [['120+', 'km/h hedef hız'], ['6.', 'Türkiye derecesi'], ['30', 'takım üyesi'], ['4', 'alt disiplin']]).map(([value, label]) => <div className="stat" key={label}><strong>{value}</strong><span>{label}</span></div>)}
+          </div>
+        </section>
+
+        <section className="concept section-wrap" id="hyperloop">
+          <div className="concept-heading reveal"><span className="section-label">01 · HYPERLOOP</span><h2>{en ? 'The principles behind the system.' : 'Sistemin çalışma prensipleri.'}</h2><p>{en ? 'Move through the presentation by dragging or using the controls.' : 'Sunumu sürükleyerek veya kontrolleri kullanarak ilerleyin.'}</p></div>
+          <div className="concept-shell reveal">
+            <AnimatePresence mode="wait" custom={conceptDirection}>
+              <motion.article
+                className="concept-slide"
+                key={conceptIndex}
+                custom={conceptDirection}
+                variants={{ enter: (direction: number) => ({ x: direction * 140, opacity: 0 }), center: { x: 0, opacity: 1 }, exit: (direction: number) => ({ x: direction * -140, opacity: 0 }) }}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: .55, ease: [0.16, 1, 0.3, 1] }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={.12}
+                onDragEnd={(_, info) => { if (info.offset.x < -70) changeConcept(conceptIndex + 1); if (info.offset.x > 70) changeConcept(conceptIndex - 1) }}
+              >
+                {conceptIndex === 0 && <>
+                  <div className="concept-title"><span>01 / 03</span><h3>{en ? <>A capsule that <em>glides</em> inside a tube</> : <>Tüp içinde <em>süzülen</em> bir kapsül</>}</h3><p>{en ? <>Hyperloop moves vehicles at high speed inside a <b>low-pressure tube</b>, without direct contact with the rail.</> : <>Hyperloop; kapsüllerin <b>düşük basınçlı bir tüp</b> içinde, <b>raya temas etmeden</b> yüksek hızlarla ilerlediği yeni nesil bir ulaşım sistemidir.</>}</p></div>
+                  <div className="concept-tube"><img src="/assets/pod-side-profile.png" alt="Team PARS kapsülünün tüp içindeki yan görünümü" /></div>
+                  <div className="concept-pillars">
+                    <div><i><Clock3 /></i><span><strong>{en ? 'Low pressure' : 'Düşük basınç'}</strong><small>{en ? 'Reduced air resistance inside the tube.' : 'Tüp içindeki hava direnci büyük ölçüde azalır.'}</small></span></div>
+                    <div><i><Magnet /></i><span><strong>{en ? 'Magnetic levitation' : 'Manyetik süzülme'}</strong><small>{en ? 'The vehicle advances without rail contact.' : 'Kapsül raya temas etmeden ilerler.'}</small></span></div>
+                    <div><i><Zap /></i><span><strong>{en ? 'Electric propulsion' : 'Elektrikli itiş'}</strong><small>{en ? 'Electric motors provide controlled acceleration.' : 'Elektrik motorları kontrollü ivmelenme sağlar.'}</small></span></div>
+                  </div>
+                </>}
+                {conceptIndex === 1 && <>
+                  <div className="concept-title compact"><span>02 / 03</span><h3>{en ? <>Why does it <em>matter?</em></> : <>Neden <em>önemli?</em></>}</h3><p>{en ? 'Its architecture brings speed, energy efficiency and controlled operating conditions into one transport system.' : 'Mimarisi; hız, enerji verimliliği ve kontrollü çalışma koşullarını tek bir ulaşım sisteminde birleştirir.'}</p></div>
+                  <div className="benefit-grid">
+                    <div><i><Gauge /></i><strong>{en ? 'Speed' : 'Hız'}</strong><p>{en ? 'High-speed ground transportation potential.' : 'Yüksek hızlı kara ulaşımı potansiyeli.'}</p></div>
+                    <div><i><Zap /></i><strong>{en ? 'Efficiency' : 'Verimlilik'}</strong><p>{en ? 'Lower resistance means lower energy loss.' : 'Düşük direnç, daha az enerji kaybı anlamına gelir.'}</p></div>
+                    <div><i><Leaf /></i><strong>{en ? 'Electric system' : 'Elektrikli sistem'}</strong><p>{en ? 'Compatible with renewable electricity.' : 'Yenilenebilir elektrik kaynaklarıyla uyumludur.'}</p></div>
+                    <div><i><ShieldCheck /></i><strong>{en ? 'Controlled line' : 'Kontrollü hat'}</strong><p>{en ? 'The enclosed tube limits environmental effects.' : 'Kapalı tüp dış ortam etkilerini sınırlar.'}</p></div>
+                  </div>
+                </>}
+                {conceptIndex === 2 && <>
+                  <div className="concept-title compact"><span>03 / 03</span><h3>{en ? <>From an idea to an <em>engineering field</em></> : <>Bir fikirden <em>mühendislik alanına</em></>}</h3><p>{en ? 'The concept developed through successive research, prototype and student competition programmes.' : 'Kavram; araştırma, prototip ve öğrenci yarışma programlarıyla gelişti.'}</p></div>
+                  <div className="history-track">
+                    {(en ? [['1799','Pneumatic tube transport idea'],['1904','Vacuum train concept'],['2013','Hyperloop Alpha report'],['2015','Student engineering competitions'],['2020','First passenger test'],['TODAY','National research programmes']] : [['1799','Pnömatik tüp içi taşıma fikri'],['1904','Vakumlu tren tasarımı'],['2013','Hyperloop Alpha raporu'],['2015','Öğrenci mühendislik yarışmaları'],['2020','İlk yolculu test'],['BUGÜN','Ulusal araştırma programları']]).map(([year, text]) => <div key={year}><strong>{year}</strong><i /><p>{text}</p></div>)}
+                  </div>
+                </>}
+              </motion.article>
+            </AnimatePresence>
+          </div>
+          <div className="concept-controls reveal">
+            <button onClick={() => changeConcept(conceptIndex - 1)} aria-label={en ? 'Previous slide' : 'Önceki slayt'}><ChevronLeft /></button>
+            <div>{[0, 1, 2].map((index) => <button key={index} className={conceptIndex === index ? 'active' : ''} onClick={() => changeConcept(index)} aria-label={`${index + 1}. slayt`} />)}</div>
+            <span><b>{String(conceptIndex + 1).padStart(2, '0')}</b> / 03</span>
+            <button onClick={() => changeConcept(conceptIndex + 1)} aria-label={en ? 'Next slide' : 'Sonraki slayt'}><ChevronRight /></button>
           </div>
         </section>
 
