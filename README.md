@@ -24,4 +24,9 @@ Görseller, 3D STL modeli ve sponsorluk PDF'i statik dosyalardır. İletişim fo
 
 ## GitHub Pages
 
-`.github/workflows/deploy-pages.yml`, `main` dalına gönderilen her güncellemede siteyi derleyip GitHub Pages'a hazırlar. Depo ayarlarında **Settings → Pages → Source: GitHub Actions** seçilmelidir.
+`.github/workflows/deploy-pages.yml`, `main` dalına gönderilen her güncellemede siteyi derleyip statik yayın paketini oluşturur.
+
+GitHub Pages dağıtımı için depo public olmalı veya hesap private depolarda Pages destekleyen bir plana sahip olmalıdır. Ardından:
+
+1. **Settings → Pages → Source: GitHub Actions** seçilir.
+2. **Actions → Build and deploy static site → Run workflow** çalıştırılır.
