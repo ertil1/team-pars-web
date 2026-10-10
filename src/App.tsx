@@ -9,6 +9,7 @@ import { milestones, systems, team, tools } from './data'
 gsap.registerPlugin(ScrollTrigger)
 
 const PodVisual = lazy(() => import('./components/PodVisual'))
+const publicUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`
 
 const nav = [
   { tr: 'Hakkımızda', en: 'About', id: 'about' },
@@ -57,7 +58,7 @@ const milestoneEN: Record<string, [string, string]> = {
 function Logo() {
   return (
     <a className="logo" href="#top" aria-label="Team PARS ana sayfa">
-      <img src="/assets/team-pars-logo-white.png" alt="" />
+      <img src={publicUrl('assets/team-pars-logo-white.png')} alt="" />
       <span>TEAM PARS</span>
     </a>
   )
@@ -136,7 +137,7 @@ export default function App() {
             {nav.map((item) => <a key={item.id} href={`#${item.id}`} onClick={() => setMenu(false)}>{en ? item.en : item.tr}</a>)}
           </nav>
           <div className="nav-actions">
-            <a className="nav-download" href="/sponsorship/team-pars-takim-tanitim-2026.pdf" download>{en ? 'Partnership deck' : 'Sponsorluk dosyası'} <Download size={15} /></a>
+            <a className="nav-download" href={publicUrl('sponsorship/team-pars-takim-tanitim-2026.pdf')} download>{en ? 'Partnership deck' : 'Sponsorluk dosyası'} <Download size={15} /></a>
             <button className="lang" onClick={() => setLang(en ? 'TR' : 'EN')}>{lang}</button>
             <button className="menu-button" onClick={() => setMenu(!menu)} aria-label={en ? 'Open menu' : 'Menüyü aç'}>{menu ? <X /> : <Menu />}</button>
           </div>
@@ -145,7 +146,7 @@ export default function App() {
 
       <main>
         <section className="hero" id="about">
-          <img className="hero-image" src="/assets/presentation-team.jpg" alt="İzmir Kâtip Çelebi Üniversitesi Team PARS ekibi ve geliştirdikleri araç" />
+          <img className="hero-image" src={publicUrl('assets/presentation-team.jpg')} alt="İzmir Kâtip Çelebi Üniversitesi Team PARS ekibi ve geliştirdikleri araç" />
           <div className="hero-overlay" />
           <div className="hero-inner">
             <p className="hero-kicker">{en ? 'İZMİR KÂTİP ÇELEBİ UNIVERSITY' : 'İZMİR KÂTİP ÇELEBİ ÜNİVERSİTESİ'}</p>
@@ -189,7 +190,7 @@ export default function App() {
               >
                 {conceptIndex === 0 && <>
                   <div className="concept-title"><span>01 / 03</span><h3>{en ? <>A capsule that <em>glides</em> inside a tube</> : <>Tüp içinde <em>süzülen</em> bir kapsül</>}</h3><p>{en ? <>Hyperloop moves vehicles at high speed inside a <b>low-pressure tube</b>, without direct contact with the rail.</> : <>Hyperloop; kapsüllerin <b>düşük basınçlı bir tüp</b> içinde, <b>raya temas etmeden</b> yüksek hızlarla ilerlediği yeni nesil bir ulaşım sistemidir.</>}</p></div>
-                  <div className="concept-tube"><img src="/assets/pod-side-profile.png" alt="Team PARS kapsülünün tüp içindeki yan görünümü" /></div>
+                  <div className="concept-tube"><img src={publicUrl('assets/pod-side-profile.png')} alt="Team PARS kapsülünün tüp içindeki yan görünümü" /></div>
                   <div className="concept-pillars">
                     <div><i><Clock3 /></i><span><strong>{en ? 'Low pressure' : 'Düşük basınç'}</strong><small>{en ? 'Reduced air resistance inside the tube.' : 'Tüp içindeki hava direnci büyük ölçüde azalır.'}</small></span></div>
                     <div><i><Magnet /></i><span><strong>{en ? 'Magnetic levitation' : 'Manyetik süzülme'}</strong><small>{en ? 'The vehicle advances without rail contact.' : 'Kapsül raya temas etmeden ilerler.'}</small></span></div>
@@ -231,7 +232,7 @@ export default function App() {
           <div className="pod-stage reveal"><Suspense fallback={<div className="model-loading"><span />{en ? 'LOADING 3D MODEL' : '3D MODEL YÜKLENİYOR'}</div>}><PodVisual /></Suspense></div>
           <figure className="vehicle-profile reveal">
             <div><span className="section-label">{en ? 'VEHICLE PROFILE' : 'ARAÇ PROFİLİ'}</span><h3>{en ? 'The vehicle developed for the competition track.' : 'Yarış pisti için geliştirilen gerçek araç.'}</h3><p>{en ? 'The side profile from the Team PARS presentation shows the final shell, university identity and competition livery.' : 'Team PARS sunumundaki yan görünüş; son kabuk formunu, üniversite kimliğini ve yarış kaplamasını birlikte gösteriyor.'}</p></div>
-            <img src="/assets/pod-side-profile.png" alt="Team PARS yarış aracının yandan görünümü" />
+            <img src={publicUrl('assets/pod-side-profile.png')} alt="Team PARS yarış aracının yandan görünümü" />
           </figure>
           <div className="systems-grid">
             {systems.map((item) => {
@@ -249,8 +250,8 @@ export default function App() {
             lead={en ? 'The project was validated for propulsion, communications, speed, positioning and safe stopping in TÜBİTAK’s 208-metre test tunnel.' : 'Proje; TÜBİTAK’ın 208 metrelik test tünelinde itki, haberleşme, hız, konumlandırma ve güvenli duruş kriterlerinde sınandı.'}
           />
           <div className="report-grid reveal">
-            <figure className="report-main"><img src="/assets/presentation-work.jpg" alt="Team PARS ekibi açık şasi üzerinde teknik sunum yaparken" /><figcaption>{en ? 'Engineering presentation' : 'Mühendislik sunumu'} · TÜBİTAK GEBZE</figcaption></figure>
-            <figure><img src="/assets/presentation-team.jpg" alt="Team PARS yarış ekibi ve araç" /><figcaption>{en ? 'Competition team' : 'Yarış ekibi'}</figcaption></figure>
+            <figure className="report-main"><img src={publicUrl('assets/presentation-work.jpg')} alt="Team PARS ekibi açık şasi üzerinde teknik sunum yaparken" /><figcaption>{en ? 'Engineering presentation' : 'Mühendislik sunumu'} · TÜBİTAK GEBZE</figcaption></figure>
+            <figure><img src={publicUrl('assets/presentation-team.jpg')} alt="Team PARS yarış ekibi ve araç" /><figcaption>{en ? 'Competition team' : 'Yarış ekibi'}</figcaption></figure>
             <article className="press-card">
               <span>{en ? 'IN THE PRESS' : 'BASINDA TEAM PARS'}</span>
               <h3>{en ? '6th place among 242 teams in the Performance category.' : 'Performans kategorisinde 242 takım arasından Türkiye 6’ncılığı.'}</h3>
@@ -287,7 +288,7 @@ export default function App() {
           <div className="timeline reveal">
             {milestones.map((milestone) => <article className={`milestone ${milestone.state}`} key={milestone.date}><time>{milestone.date}</time><span className="timeline-dot" /><h3>{en ? milestoneEN[milestone.date][0] : milestone.title}</h3><p>{en ? milestoneEN[milestone.date][1] : milestone.text}</p></article>)}
           </div>
-          <div className="achievement reveal"><img src="/assets/teknofest-patch-2026.png" alt="TEKNOFEST Hyperloop 2026 Team PARS arması" /><div><span className="section-label">TEKNOFEST HYPERLOOP 2026</span><h3>{en ? 'A result earned through design, production and field testing.' : 'Tasarım, üretim ve saha testleriyle kazanılan Türkiye 6’ncılığı.'}</h3></div></div>
+          <div className="achievement reveal"><img src={publicUrl('assets/teknofest-patch-2026.png')} alt="TEKNOFEST Hyperloop 2026 Team PARS arması" /><div><span className="section-label">TEKNOFEST HYPERLOOP 2026</span><h3>{en ? 'A result earned through design, production and field testing.' : 'Tasarım, üretim ve saha testleriyle kazanılan Türkiye 6’ncılığı.'}</h3></div></div>
         </section>
 
         <section className="sponsorship section-wrap" id="sponsorship">
@@ -300,7 +301,7 @@ export default function App() {
             </div>
             <div className="sponsor-docs">
               <p>{en ? 'CURRENT DOCUMENT' : 'GÜNCEL DOKÜMAN'}</p>
-              <a className="document-card" href="/sponsorship/team-pars-takim-tanitim-2026.pdf" download><div><strong>{en ? 'Team PARS Introduction & Partnership Deck' : 'Team PARS Tanıtım ve Sponsorluk Dosyası'}</strong><span>PDF · 8.2 MB · 2026</span></div><Download size={22} /></a>
+              <a className="document-card" href={publicUrl('sponsorship/team-pars-takim-tanitim-2026.pdf')} download><div><strong>{en ? 'Team PARS Introduction & Partnership Deck' : 'Team PARS Tanıtım ve Sponsorluk Dosyası'}</strong><span>PDF · 8.2 MB · 2026</span></div><Download size={22} /></a>
               <div className="tiers">{(en ? ['Main Partner', 'Gold', 'Silver', 'Supporter'] : ['Ana Sponsor', 'Altın', 'Gümüş', 'Destekçi']).map((tier) => <span key={tier}>{tier}</span>)}</div>
             </div>
           </div>

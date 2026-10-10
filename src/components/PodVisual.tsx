@@ -4,8 +4,10 @@ import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as THREE from 'three'
 
+const modelUrl = `${import.meta.env.BASE_URL}models/kapsul.STL`
+
 function VehicleModel() {
-  const sourceGeometry = useLoader(STLLoader, '/models/kapsul.STL')
+  const sourceGeometry = useLoader(STLLoader, modelUrl)
   const pivot = useRef<THREE.Group>(null)
   const prepared = useMemo(() => {
     const geometry = sourceGeometry.clone()

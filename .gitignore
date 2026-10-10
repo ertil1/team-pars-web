@@ -4,7 +4,10 @@ dist/
 .openai/
 *.log
 *.tar.gz
+*.zip
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 SUNUM/
-SUNUM.zip
 __MACOSX/
 /kapsul.STL
