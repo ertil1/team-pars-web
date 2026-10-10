@@ -105,6 +105,14 @@ export default function App() {
     return () => { window.clearInterval(timer); cancelAnimationFrame(frame); lenis.destroy(); context.revert() }
   }, [])
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setConceptDirection(1)
+      setConceptIndex((current) => (current + 1) % 3)
+    }, 6000)
+    return () => window.clearInterval(timer)
+  }, [])
+
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
