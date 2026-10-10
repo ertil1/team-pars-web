@@ -10,6 +10,8 @@ function VehicleModel() {
   const prepared = useMemo(() => {
     const geometry = sourceGeometry.clone()
     geometry.computeVertexNormals()
+    // CAD/STL exports use Z as the vertical axis; Three.js uses Y.
+    geometry.rotateX(-Math.PI / 2)
     geometry.computeBoundingBox()
     geometry.center()
     geometry.computeBoundingBox()
@@ -26,8 +28,8 @@ function VehicleModel() {
   })
 
   return (
-    <group ref={pivot} rotation={[0, -0.34, 0]}>
-      <mesh geometry={prepared.geometry} scale={prepared.scale} position={[0, 0.08, 0]} castShadow receiveShadow>
+    <group ref={pivot} rotation={[0, -0.2, 0]}>
+      <mesh geometry={prepared.geometry} scale={prepared.scale} position={[0, 0.02, 0]} castShadow receiveShadow>
         <meshPhysicalMaterial
           color="#101b2e"
           metalness={0.72}
@@ -94,7 +96,7 @@ export default function PodVisual() {
         <Suspense fallback={<LoadingModel />}>
           <VehicleModel />
         </Suspense>
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.22, 0]} receiveShadow>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.95, 0]} receiveShadow>
           <planeGeometry args={[20, 20]} />
           <shadowMaterial transparent opacity={0.32} />
         </mesh>
