@@ -1,15 +1,14 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { ArrowDown, ArrowRight, Check, ChevronDown, Download, Instagram, Linkedin, Mail, Menu, Send, X, Zap } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import PodVisual from './components/PodVisual'
 import { milestones, systems, team, tools } from './data'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const TunnelScene = lazy(() => import('./components/TunnelScene'))
+const PodVisual = lazy(() => import('./components/PodVisual'))
 
 const nav = [
   { n: '01', tr: 'Hakkımızda', en: 'About', id: 'about' },
@@ -27,19 +26,6 @@ function Logo() {
 
 function SectionHead({ index, eyebrow, title, lead }: { index: string; eyebrow: string; title: string; lead?: string }) {
   return <div className="section-head reveal"><div className="eyebrow"><span>{index}</span>{eyebrow}</div><h2>{title}</h2>{lead && <p>{lead}</p>}</div>
-}
-
-function Cursor() {
-  const dot = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (window.matchMedia('(pointer: coarse)').matches) return
-    const move = (e: MouseEvent) => gsap.to(dot.current, { x: e.clientX, y: e.clientY, duration: .16, ease: 'power2.out' })
-    const over = (e: MouseEvent) => { if ((e.target as HTMLElement).closest('a,button,.system-card,.team-card')) dot.current?.classList.add('is-active') }
-    const out = () => dot.current?.classList.remove('is-active')
-    window.addEventListener('mousemove', move); document.addEventListener('mouseover', over); document.addEventListener('mouseout', out)
-    return () => { window.removeEventListener('mousemove', move); document.removeEventListener('mouseover', over); document.removeEventListener('mouseout', out) }
-  }, [])
-  return <div className="cursor" ref={dot} />
 }
 
 export default function App() {
@@ -97,7 +83,6 @@ export default function App() {
   }
 
   return <div id="top" lang={en ? 'en' : 'tr'}>
-    <Cursor />
     <header className="nav-shell">
       <Logo />
       <nav className={menu ? 'nav-links open' : 'nav-links'} aria-label={en ? 'Main menu' : 'Ana menü'}>
@@ -112,7 +97,7 @@ export default function App() {
 
     <main>
       <section className="hero" id="about">
-        <div className="hero-canvas"><Suspense fallback={<div className="tunnel-fallback"/>}><TunnelScene /></Suspense></div>
+        <div className="hero-media"><img src="/assets/pars-team-2026-2.webp" alt="Team PARS and the Anadolu Parsı vehicle at TEKNOFEST" /></div>
         <div className="hero-shade" />
         <div className="hero-rail"><span>PARS / P-01</span><i/><span>38°25′N · 27°08′E</span></div>
         <div className="hero-content">
@@ -136,7 +121,7 @@ export default function App() {
 
       <section className="technology section-pad" id="technology">
         <SectionHead index="02" eyebrow={en?'PROJECT & TECHNOLOGY':'PROJEMİZ & TEKNOLOJİ'} title={en?'ONE POD.\nTHOUSANDS OF DECISIONS.':'TEK BİR POD.\nBİNLERCE KARAR.'} lead={en?'Every subsystem of Anadolu Parsı is co-designed around speed, safety and testability.':'Anadolu Parsı’nın her alt sistemi; hız, güvenlik ve test edilebilirlik dengesinde birlikte tasarlanıyor.'} />
-        <div className="pod-stage reveal"><PodVisual /></div>
+        <div className="pod-stage reveal"><Suspense fallback={<div className="model-loading"><span/>3D MODEL YÜKLENİYOR</div>}><PodVisual /></Suspense></div>
         <div className="systems-grid">
           {systems.map((item) => { const content = en ? systemEN[item.code] : item; return <article className="system-card reveal" key={item.id}><div className="system-top"><span>{item.id}</span><b>{item.code}</b></div><Zap className="system-icon"/><h3>{content.title}</h3><p>{content.desc}</p><ul>{content.specs.map(s => <li key={s}><i/>{s}</li>)}</ul><div className="card-line"/></article> })}
         </div>
@@ -148,7 +133,7 @@ export default function App() {
         <div className="filters" role="tablist">{filters.map(f => <button role="tab" aria-selected={filter===f} className={filter===f?'active':''} onClick={() => setFilter(f)} key={f}>{en ? filterLabels[f] : f}</button>)}</div>
         <motion.div className="team-grid" layout>
           <AnimatePresence mode="popLayout">{visibleTeam.map((person, i) => <motion.article className="team-card" layout initial={{opacity:0, y:16}} animate={{opacity:1,y:0}} exit={{opacity:0,scale:.97}} key={person.name}>
-            <div className="team-image"><span className="team-index">P/{String(i+1).padStart(2,'0')}</span><div className="silhouette"><div/><i/></div><span className="cross c1">+</span><span className="cross c2">+</span><div className="scanline"/></div>
+            <div className="team-image"><span className="team-index">UNIT / {String(i+1).padStart(2,'0')}</span><strong>{person.code}</strong><p>{en ? 'ENGINEERING DIVISION' : 'MÜHENDİSLİK BİRİMİ'}</p><div className="unit-lines"><i/><i/><i/></div></div>
             <div className="team-info"><div><span>{person.code} / {en ? teamEN[person.code][2] : person.dept}</span><h3>{en ? teamEN[person.code][0] : person.name}</h3><p>{en ? teamEN[person.code][1] : person.role}</p></div><button aria-label={en?'LinkedIn profile coming soon':'LinkedIn profili yakında'} title={en?'Profile link coming soon':'Profil bağlantısı yakında'}><Linkedin size={17}/></button></div>
           </motion.article>)}</AnimatePresence>
         </motion.div>
