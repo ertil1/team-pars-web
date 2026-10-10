@@ -55,7 +55,12 @@ const milestoneEN: Record<string, [string, string]> = {
 }
 
 function Logo() {
-  return <a className="logo" href="#top" aria-label="Team PARS ana sayfa"><img src="/assets/team-pars-logo-white.png" alt="Team PARS Hyperloop" /></a>
+  return (
+    <a className="logo" href="#top" aria-label="Team PARS ana sayfa">
+      <img src="/assets/team-pars-logo-white.png" alt="" />
+      <span>TEAM PARS</span>
+    </a>
+  )
 }
 
 function SectionHead({ label, title, lead }: { label: string; title: string; lead?: string }) {
