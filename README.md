@@ -30,3 +30,7 @@ GitHub Pages dağıtımı için depo public olmalı veya hesap private depolarda
 
 1. **Settings → Pages → Source: GitHub Actions** seçilir.
 2. **Actions → Build and deploy static site → Run workflow** çalıştırılır.
+
+## Netlify ve teampars.com.tr
+
+Depoda bulunan `netlify.toml`, Netlify için üretim komutunu `npm run build`, yayın klasörünü `dist` olarak ayarlar. Mevcut `teampars.com.tr` Netlify sitesinde bu GitHub deposu seçildiğinde ana site, Google doğrulama etiketi ve doğrulama dosyaları birlikte yayımlanır.
