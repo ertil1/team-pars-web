@@ -11,3 +11,4 @@ vite.config.d.ts
 SUNUM/
 __MACOSX/
 /kapsul.STL
+/google*.html
